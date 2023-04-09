@@ -1,0 +1,120 @@
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('./background.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 20px;
+  height: 100vh;
+  /*background-size: cover;*/
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(0.1px);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.form-container {
+  grid-column: 1 / span 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipes-container {
+  grid-column: 1 / span 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 30px;
+  margin-right: 20px;
+  height: 100%;
+  text-align: left;
+}
+
+.list-container {
+  margin-top: 20px;
+}
+
+.list-group-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border: none;
+}
+
+h2 {
+  color: white;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hidden {
+  display: none;
+}
+
+.recipe-content {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.resizer-vertical {
+    width: 11px;
+    margin: 0 -5px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    cursor: col-resize;
+}
+
+.tabs-container {
+  grid-column: 2 / span 1;
+  height: 100%;
+}
+
+.tabs-container .nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  grid-column: 2 / span 1;
+  height: 100%;
+  background-color: #fff6d5;
+}
+
+.tabs-container .nav-link {
+  margin-right: 10px;
+}
+
+.tabs-container .tab-content:not(.active) {
+  display: none;
+}
+
+.tab {
+  margin-right: 10px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul li::before {
+  content: "🥄  ";
+}
