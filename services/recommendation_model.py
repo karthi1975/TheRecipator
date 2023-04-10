@@ -9,7 +9,8 @@ cnx = mysql.connector.connect(
     password='Banana@Bread',
     host='recipatornew.mysql.database.azure.com',
     port=3306,
-    database='recipator_db'
+    database='recipator_db',
+    ssl_ca='DigiCertGlobalRootCA.crt.pem'
 )
 
 # Load the recipe data from the MySQL database using the connection object
