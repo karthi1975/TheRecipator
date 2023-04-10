@@ -5,7 +5,7 @@ import './App.css';
 import { Tabs, Tab, Panel } from '@bumaga/tabs';
 import ratatouille from './ratatouille2.png';
 // import Rtabs from './Rtabs';
-import Dtime from './Dtime';
+//import Dtime from './Dtime';
 
 
 function App() {
@@ -69,7 +69,7 @@ function App() {
     <div className="container">
 
       <div className="form-container">
-        <h4>⏳ Preparation time</h4><Dtime />
+        {/*<h4>⏳ Preparation time h:mm</h4><Dtime />*/}
 
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formIngredients">
