@@ -12,7 +12,8 @@ random.seed(101)
 
 def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingredients):
 
-
+    # time the execution
+    start_time = time.time()
     # parse strings from user
     ui = desired_ingredients.split(' ')
     bad_list = excluded_ingredients.split(' ')
@@ -31,9 +32,6 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
             new_matches = (list(set(match_one).intersection(match_more)))
             edges_matching_ui.extend(new_matches)
 
-    # time the execution
-    start_time = time.time()
-
     G = nx.Graph()
     G.add_edges_from(edges_matching_ui)
 
@@ -41,8 +39,27 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
     partition = community_louvain.best_partition(G)
 
     # Get recipe ids
+    # recipe_ids = []
+    # for n in set(partition.values()):
+    #     matching_recipes = [k for k, v in partition.items() if v == n]
+    #     recipe_ids.append(random.choice(matching_recipes))
+
+    ## get the clusters with the most results and drop those with no results
+    cluster_ranks = {}
+    cluster_names = list(partition.values())
+    for v in cluster_names:
+        cluster_ranks[v] = cluster_names.count(v)
+
+    ## sort the clusters by how many recipes they each include
+    cluster_ranks_sorted = pd.DataFrame(cluster_ranks, index=[0]).transpose().sort_values(0, ascending=False)
+    cluster_ranks_sorted.rename({0: 'count'}, axis=1, inplace=True)
+
+    ## pick the top ten clusters with the most recipes
+    top_ten_clusters = cluster_ranks_sorted[:10].index.values.tolist()
+
+    ## pick a random node from each of the top ten clusters and return as recommendations set
     recipe_ids = []
-    for n in set(partition.values()):
+    for n in top_ten_clusters:
         matching_recipes = [k for k, v in partition.items() if v == n]
         recipe_ids.append(random.choice(matching_recipes))
 
@@ -94,11 +111,11 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
                     'directions': recipe['DIRECTIONS'],
                     'image': recipe['IMAGE']
                 })
-    # Shuffle the recommended_recipes list
-    random.shuffle(recommended_recipes)
-
-    # Return only the first 10 recipes
-    recommended_recipes = recommended_recipes[:10]
+    # # Shuffle the recommended_recipes list
+    # random.shuffle(recommended_recipes)
+    #
+    # # Return only the first 10 recipes
+    # recommended_recipes = recommended_recipes[:10]
 
     # Print recommendations and execution time
     print('List of recommended recipes:\n', recommended_recipes)
