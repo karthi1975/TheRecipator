@@ -67,7 +67,7 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
 
 
     recipe_ids_str = ', '.join([str(recipe_id) for recipe_id in recipe_ids])
-    query = f'SELECT * FROM recipator_db.base_table_clean WHERE RECIPE_ID IN ({recipe_ids_str});'
+    query = f'SELECT * FROM recipator_db.recipes_main WHERE RECIPE_ID IN ({recipe_ids_str});'
     print("Query:", query)
     cursor.execute(query)
 
@@ -92,7 +92,7 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
                     'description': recipe['DESCRIPTION'],
                     'ingredients': recipe['INGREDIENTS'],
                     'directions': recipe['DIRECTIONS'],
-                    'image': recipe['URL']
+                    'image': recipe['IMAGE']
                 })
     # Shuffle the recommended_recipes list
     random.shuffle(recommended_recipes)
