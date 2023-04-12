@@ -26,7 +26,7 @@ const handleSubmit = async (e) => {
 
     // Make an HTTP request to the Flask API with the ingredients
     const response = await axios.post(
-      'http://localhost:5001/recommend',
+      'http://34.28.150.158:5001/recommend',
       { include: addedIngredients.join(' '), exclude: removedIngredients.join(' ') }
     );
 
