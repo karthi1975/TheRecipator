@@ -127,6 +127,7 @@
 /*  content: "🥄  ";*/
 /*}*/
 
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -144,7 +145,6 @@ body {
   background-size: cover;
   background-position: center;
 }
-
 .container {
   display: grid;
   grid-template-columns: 1fr;
@@ -165,6 +165,7 @@ body {
     height: 150vh;
   }
 }
+
 
 .form-container {
   grid-column: 1 / span 1;
@@ -272,3 +273,4 @@ ul {
 ul li::before {
   content: "🥄  ";
 }
+s
