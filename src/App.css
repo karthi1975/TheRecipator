@@ -162,7 +162,7 @@ body {
 @media (min-width: 768px) {
   .container {
     grid-template-columns: 30% 70%;
-    height: 150vh;
+    height: auto;
   }
 }
 
