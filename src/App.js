@@ -4,10 +4,12 @@ import axios from 'axios';
 import './App.css';
 import { Tabs, Tab, Panel } from '@bumaga/tabs';
 import ratatouille from './ratatouille2.png';
+// import {Linking} from 'react-native';
+
 // import Rtabs from './Rtabs';
 // <<<<<<< HEAD
 // import Dtime from './Dtime';
-// import Ingsubs from './Ingsubs';
+import Ingsubs from './Ingsubs';
 // =======
 // //import Dtime from './Dtime';
 // >>>>>>> 93e68ac36164eda349dc62911f35f0d472437e0f
@@ -19,6 +21,7 @@ function App() {
   const [addedIngredients, setAddedIngredients] = useState([]);
   const [removedIngredients, setRemovedIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
+
   // const [ subsIngredient, setSubsIngredient] = useState('');
 
 const handleSubmit = async (e) => {
@@ -78,33 +81,17 @@ const handleRemove = () => {
 />
 
 
-  // const handleSubstitute = async (e) => {
-  //   e.preventDefault();
-  //
-  //   // Make an HTTP request to the Flask API with the substitute ingredients
-  //   const response = await axios.post('http://localhost:5001/recommend', { subsIngredient });
-  //
-  //   // Update the state with substitute ingredient
-  //   const recommendedSubstitutes = response.data.map((o, s) => ({
-  //     original: o,
-  //     substitute: s,
-  //   }));
-  //   setSubsIngredient(recommendedSubstitutes);
-  // };
-
   return (
     <div className="container">
 
       <div className="form-container">
 
-
         {/*<h4>⏳ Preparation time h:mm</h4><Dtime />*/}
-
 
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formIngredients">
             {/*<h4>Ingredients</h4>*/}
-            <h4>Include / Exclude ingredients then Submit</h4>
+            <h4 style={{color:"darkolivegreen"}}>Include / Exclude ingredients, then hit Submit, and let it simmer for a few seconds!</h4>
             <Form.Label></Form.Label>
             <Form.Control type="text" placeholder="oil garlic fish" value={ingredients} onChange={(e) => setIngredients(e.target.value)} />
             <Button variant="primary" type="submit" className="w-100">
@@ -128,25 +115,25 @@ const handleRemove = () => {
           {addedIngredients.length > 0 && (
             <div>
               <h5>Added Ingredients:</h5>
-              <ul>
+              {/*<ul>*/}
                 {addedIngredients.map((ingredient, index) => (
-                  <li key={index}>
-                    {ingredient}
+                  <li key={index} style={{listStyle: 'none'}}>
+                    {'✔️ ' + ingredient}
                   </li>
                 ))}
-              </ul>
+              {/*</ul>*/}
             </div>
           )}
           {removedIngredients.length > 0 && (
             <div>
               <h5>Removed Ingredients:</h5>
-              <ul>
+              {/*<ul>*/}
                 {removedIngredients.map((ingredient, index) => (
-                  <li key={index}>
-                    {ingredient}
+                  <li key={index} style={{listStyle: 'none'}}>
+                    {'✖️ ' + ingredient}
                   </li>
                 ))}
-              </ul>
+              {/*</ul>*/}
             </div>
           )}
         </div>
@@ -160,13 +147,14 @@ const handleRemove = () => {
           }
         </div>
 
-        <h4>Ingredient Substitutions</h4>
-        {/*<Ingsubs/>*/}
+        <h4 style={{color:"darkolivegreen"}}>Ingredient Substitutions</h4>
+        {/*<p>Don't have an ingredient? Find a substitute</p>*/}
+        <Ingsubs/>
 
+          <a href="https://forms.gle/jefmYqPREqdFXYKk9">
+              <p style={{fontSize: 15}}>Romain calm and chive on by answering our survey. <br/> Thanks a brunch!</p>
+          </a>
       </div>
-
-      {/*<span role="presentation" className="resizer-vertical "></span>*/}
-      {/*<Rtabs recipes={props.recipes}/>*/}
 
       <div className="tabs-container">
         <Tabs>
@@ -184,7 +172,7 @@ const handleRemove = () => {
               <img src = {recipe.content.image === 'https://images.media-allrecipes.com/images/79590.png' ? ratatouille : recipe.content.image}
                    alt="display image"
                    width={300}/>
-              <p><b>Prep time:</b>   h:mm   <b>Ready time:</b>  h:mm  </p>
+              <p><b>Prep time:</b>   {recipe.content.preptime}   <b>Ready time:</b> {recipe.content.readytime}  </p>
               <h4>Ingredients</h4>
               <ul>
                 {recipe.content.ingredients.substring(1, recipe.content.ingredients.length -1).split("\n").map((value, index ) => (

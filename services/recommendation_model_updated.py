@@ -109,7 +109,9 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
                     'description': recipe['DESCRIPTION'],
                     'ingredients': recipe['INGREDIENTS'],
                     'directions': recipe['DIRECTIONS'],
-                    'image': recipe['IMAGE']
+                    'image': recipe['IMAGE'],
+                    'preptime': recipe['PREP_TIME'],
+                    'readytime': recipe['READY_IN']
                 })
     # # Shuffle the recommended_recipes list
     # random.shuffle(recommended_recipes)
@@ -121,6 +123,51 @@ def get_recipe_recommendations(edges_pickle, desired_ingredients, excluded_ingre
     print('List of recommended recipes:\n', recommended_recipes)
     print('\nThis function took', round(time.time() - start_time, 2), 'seconds to run.')
     return recommended_recipes
+# # import the matrix pickle files
+# with open(os.getcwd()+'/offline/edges.pickle', 'rb') as handle:
+#     edges_pickle = pickle.load(handle)
+# ## Example usage
+# user_ing = input('Enter desired ingredients: ')
+# remove = input('Recipe cannot include: ')
+# get_recipe_recommendations(edges_pickle,user_ing, remove)
+
+
+def get_ingredient_subs(ingredientToChange):
+    # Connect to MySQL database
+    cnx = mysql.connector.connect(
+        user='recipator',
+        password='Banana@Bread',
+        host='recipatornew.mysql.database.azure.com',
+        port=3306,
+        database='recipator_db',
+        ssl_ca='DigiCertGlobalRootCA.crt.pem'
+    )
+
+    # Get recipe details
+    cursor = cnx.cursor()
+
+    # Create a string with ingredients enclosed in single quotes, separated by commas
+    ingredients = ingredientToChange.split(' ')
+    ingredients_str = ', '.join([f"'{ingredient}'" for ingredient in ingredients])
+
+    query = f'SELECT * FROM ingredient_substitutions WHERE Ingredient IN ({ingredients_str});'
+    print("Query:", query)
+    cursor.execute(query)
+
+    # Load results into a Pandas DataFrame
+    colnames = cursor.column_names
+    rows = cursor.fetchall()
+    subs_df = pd.DataFrame(rows, columns=colnames)
+
+    # Close MySQL connection
+    cursor.close()
+    cnx.close()
+
+    # Filter and format substitutes
+    subsIngredients = subs_df.to_dict(orient="records")
+
+    return subsIngredients
+
 # # import the matrix pickle files
 # with open(os.getcwd()+'/offline/edges.pickle', 'rb') as handle:
 #     edges_pickle = pickle.load(handle)

@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from recommendation_model_updated import get_recipe_recommendations
+from recommendation_model_updated import get_recipe_recommendations,get_ingredient_subs
 import os
 import pickle
 
@@ -22,6 +22,16 @@ def recommend():
     print("Result : ",jsonify({'recipes': recommended_recipes}))
     return jsonify({'recipes': recommended_recipes})
 
+@app.route('/substitute', methods=['POST'])
+def substitute():
+    # Get the list of substitute ingredients from the HTTP request
+    subsIngredients = request.json['substitutes']
+
+    # Call the get_ingredient_subs function
+    recommended_substitutes = get_ingredient_subs(subsIngredients)
+    print("Result : ", jsonify({'substitutes': recommended_substitutes}))
+    return jsonify({'substitutes': recommended_substitutes})
+
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=5001)
-    print('The app is running on http://localhost:5001/')
+    print('The app is running on http://0.0.0.0:5001/')
