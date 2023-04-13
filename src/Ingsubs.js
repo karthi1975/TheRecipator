@@ -6,6 +6,7 @@ import "./App.css";
 export default function Ingsubs() {
   const [subsIng, setSubsIng] = useState("");
   const [subsResults, setSubsResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,11 +16,13 @@ export default function Ingsubs() {
     });
 
     setSubsResults(response.data.substitutes);
+    setHasSearched(true);
   };
 
   const handleClear = () => {
     setSubsIng("");
     setSubsResults([]);
+    setHasSearched(false);
   };
 
   return (
@@ -65,9 +68,9 @@ export default function Ingsubs() {
               })}
             </ul>
           </div>
-        ) : (
-          <div>No substitute found to display</div>
-        )}
+        ) : hasSearched ? (
+          <div>No Substitues found to display</div>
+        ) : null}
       </div>
     </div>
   );
