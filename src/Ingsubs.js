@@ -11,7 +11,7 @@ export default function Ingsubs() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post("http://localhost:5001/substitute", {
+    const response = await axios.post("http://34.28.150.158:5001/substitute", {
       substitutes: subsIng,
     });
 
