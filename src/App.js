@@ -4,36 +4,22 @@ import axios from 'axios';
 import './App.css';
 import { Tabs, Tab, Panel } from '@bumaga/tabs';
 import ratatouille from './ratatouille2.png';
-// import {Linking} from 'react-native';
-
-// import Rtabs from './Rtabs';
-// <<<<<<< HEAD
-// import Dtime from './Dtime';
 import Ingsubs from './Ingsubs';
-// =======
-// //import Dtime from './Dtime';
-// >>>>>>> 93e68ac36164eda349dc62911f35f0d472437e0f
-
 
 function App() {
-  // const [ prepTime, setPrepTime] = useState('');
   const [ingredients, setIngredients] = useState('');
   const [addedIngredients, setAddedIngredients] = useState([]);
   const [removedIngredients, setRemovedIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
 
-  // const [ subsIngredient, setSubsIngredient] = useState('');
-
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Make an HTTP request to the Flask API with the ingredients
     const response = await axios.post(
       'http://34.28.150.158:5001/recommend',
       { include: addedIngredients.join(' '), exclude: removedIngredients.join(' ') }
     );
 
-    // Update the state with the recommended recipes
     const recommendedRecipes = response.data.recipes.map((recipe, index) => ({
       name: `Recipe ${index + 1}`,
       content: recipe,
@@ -41,56 +27,37 @@ const handleSubmit = async (e) => {
     console.log('Recommended recipes:', recommendedRecipes);
     setRecipes(recommendedRecipes);
     console.log('Recipes state:', recipes);
-
-    // Clear the addedIngredients and removedIngredients arrays
-    // setAddedIngredients([]);
-    // setRemovedIngredients([]);
   };
 
-const handleClear = () => {
+  const handleClear = () => {
     setAddedIngredients([]);
     setRemovedIngredients([]);
     setRecipes([]);
-};
+  };
 
-const handleAdd = () => {
-  // Add new ingredients to the list of ingredients
-  const newIngredients = ingredients.split(' ').filter((ingredient) => {
-    return ingredient.trim() !== '' && !addedIngredients.includes(ingredient);
-  });
-  setAddedIngredients([...addedIngredients, ...newIngredients]);
-  setRemovedIngredients(removedIngredients.filter((ingredient) => !newIngredients.includes(ingredient)));
-  setIngredients('');
-};
+  const handleAdd = () => {
+    const newIngredients = ingredients.split(' ').filter((ingredient) => {
+      return ingredient.trim() !== '' && !addedIngredients.includes(ingredient);
+    });
+    setAddedIngredients([...addedIngredients, ...newIngredients]);
+    setRemovedIngredients(removedIngredients.filter((ingredient) => !newIngredients.includes(ingredient)));
+    setIngredients('');
+  };
 
-const handleRemove = () => {
-  // Remove ingredients from the list of ingredients
-  const newRemovedIngredients = ingredients.split(' ').filter((ingredient) => {
-    return ingredient.trim() !== '' && !removedIngredients.includes(ingredient);
-  });
-  setRemovedIngredients([...removedIngredients, ...newRemovedIngredients]);
-  setAddedIngredients(addedIngredients.filter((ingredient) => !newRemovedIngredients.includes(ingredient)));
-  setIngredients('');
-};
-
-<Form.Control
-  type="text"
-  placeholder="oil garlic fish"
-  value={ingredients}
-  onChange={(e) => setIngredients(e.target.value)}
-/>
-
+  const handleRemove = () => {
+    const newRemovedIngredients = ingredients.split(' ').filter((ingredient) => {
+      return ingredient.trim() !== '' && !removedIngredients.includes(ingredient);
+    });
+    setRemovedIngredients([...removedIngredients, ...newRemovedIngredients]);
+    setAddedIngredients(addedIngredients.filter((ingredient) => !newRemovedIngredients.includes(ingredient)));
+    setIngredients('');
+  };
 
   return (
     <div className="container">
-
       <div className="form-container">
-
-        {/*<h4>⏳ Preparation time h:mm</h4><Dtime />*/}
-
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formIngredients">
-            {/*<h4>Ingredients</h4>*/}
             <h4 style={{color:"darkolivegreen"}}>Include / Exclude ingredients, then hit Submit, and let it simmer for a few seconds!</h4>
             <Form.Label></Form.Label>
             <Form.Control type="text" placeholder="oil garlic fish" value={ingredients} onChange={(e) => setIngredients(e.target.value)} />
@@ -115,25 +82,21 @@ const handleRemove = () => {
           {addedIngredients.length > 0 && (
             <div>
               <h5>Added Ingredients:</h5>
-              {/*<ul>*/}
-                {addedIngredients.map((ingredient, index) => (
-                  <li key={index} style={{listStyle: 'none'}}>
-                    {'✔️ ' + ingredient}
-                  </li>
-                ))}
-              {/*</ul>*/}
+              {addedIngredients.map((ingredient, index) => (
+                <li key={index} style={{listStyle: 'none'}}>
+                  {'✔️ ' + ingredient}
+                </li>
+              ))}
             </div>
           )}
           {removedIngredients.length > 0 && (
             <div>
               <h5>Removed Ingredients:</h5>
-              {/*<ul>*/}
-                {removedIngredients.map((ingredient, index) => (
-                  <li key={index} style={{listStyle: 'none'}}>
-                    {'✖️ ' + ingredient}
-                  </li>
-                ))}
-              {/*</ul>*/}
+              {removedIngredients.map((ingredient, index) => (
+                <li key={index} style={{listStyle: 'none'}}>
+                  {'✖️ ' + ingredient}
+                </li>
+              ))}
             </div>
           )}
         </div>
@@ -143,17 +106,15 @@ const handleRemove = () => {
             <div key={index} className="recipe-content">
                   {recipe.content.title}
             </div>
-          ))
-          }
+          ))}
         </div>
 
         <h4 style={{color:"darkolivegreen"}}>Ingredient Substitutions</h4>
-        {/*<p>Don't have an ingredient? Find a substitute</p>*/}
         <Ingsubs/>
 
-          <a href="https://forms.gle/jefmYqPREqdFXYKk9">
-              <p style={{fontSize: 15}}>Romain calm and chive on by answering our survey. <br/> Thanks a brunch!</p>
-          </a>
+        <a href="https://forms.gle/jefmYqPREqdFXYKk9">
+          <p style={{fontSize: 15}}>Romain calm and chive on by answering our survey. <br/> Thanks a brunch!</p>
+        </a>
       </div>
 
       <div className="tabs-container">
@@ -169,23 +130,19 @@ const handleRemove = () => {
             <Panel key={index}>
               <h3>{recipe.content.title}</h3>
               <p>{recipe.content.description}</p>
-              <img src = {recipe.content.image === 'https://images.media-allrecipes.com/images/79590.png' ? ratatouille : recipe.content.image}
+              <img src={recipe.content.image === 'https://images.media-allrecipes.com/images/79590.png' ? ratatouille : recipe.content.image}
                    alt="display image"
                    width={300}/>
               <p><b>Prep time:</b>   {recipe.content.preptime}   <b>Ready time:</b> {recipe.content.readytime}  </p>
               <h4>Ingredients</h4>
               <ul>
-                {recipe.content.ingredients.substring(1, recipe.content.ingredients.length -1).split("\n").map((value, index ) => (
+                {recipe.content.ingredients.substring(1, recipe.content.ingredients.length -1).split("\n").map((value, index) => (
                   <li key={index}>
                     {value}
                     <br />
                   </li>
                 ))}
               </ul>
-
-              {/*<div style={{ whiteSpace: "pre-wrap"}}>*/}
-              {/*  {'\n🥄' + recipe.content.ingredients + '🥄' }*/}
-              {/*</div>*/}
 
               <h4>Directions</h4>
               <p>{recipe.content.directions}</p>
@@ -194,10 +151,8 @@ const handleRemove = () => {
           ))}
         </Tabs>
       </div>
-
     </div>
   );
 }
 
 export default App;
-
