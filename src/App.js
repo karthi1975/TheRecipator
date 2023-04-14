@@ -11,9 +11,11 @@ function App() {
   const [addedIngredients, setAddedIngredients] = useState([]);
   const [removedIngredients, setRemovedIngredients] = useState([]);
   const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const response = await axios.post(
       'http://34.28.150.158:5001/recommend',
@@ -27,6 +29,8 @@ function App() {
     console.log('Recommended recipes:', recommendedRecipes);
     setRecipes(recommendedRecipes);
     console.log('Recipes state:', recipes);
+
+    setLoading(false);
   };
 
   const handleClear = () => {
@@ -58,11 +62,19 @@ function App() {
       <div className="form-container">
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formIngredients">
-            <h4 style={{color:"darkolivegreen"}}>Include / Exclude ingredients, then hit Submit, and let it simmer for a few seconds!</h4>
+            <h4 style={{ color: "darkolivegreen" }}>
+              Include / Exclude ingredients, then hit Submit, and let it simmer
+              for a few seconds!
+            </h4>
             <Form.Label></Form.Label>
-            <Form.Control type="text" placeholder="oil garlic fish" value={ingredients} onChange={(e) => setIngredients(e.target.value)} />
-            <Button variant="primary" type="submit" className="w-100">
-              Submit
+            <Form.Control
+              type="text"
+              placeholder="oil garlic fish"
+              value={ingredients}
+              onChange={(e) => setIngredients(e.target.value)}
+            />
+            <Button variant="primary" type="submit" className="w-100" disabled={loading}>
+              {loading ? 'Loading...' : 'Submit'}
             </Button>
             <Button variant="danger" onClick={handleClear} className="clear-button">
               Clear
@@ -70,20 +82,19 @@ function App() {
           </Form.Group>
         </Form>
         <div>
-          <Button
-              variant="secondary"
-              onClick={handleAdd}
-              className="add-button">
+          <Button variant="secondary" onClick={handleAdd} className="add-button">
             Include
           </Button>{' '}
-          <Button variant="secondary" onClick={handleRemove} className="remove-button">Exclude</Button>
+          <Button variant="secondary" onClick={handleRemove} className="remove-button">
+            Exclude
+          </Button>
         </div>
         <div>
           {addedIngredients.length > 0 && (
             <div>
               <h5>Added Ingredients:</h5>
               {addedIngredients.map((ingredient, index) => (
-                <li key={index} style={{listStyle: 'none'}}>
+                <li key={index} style={{ listStyle: "none" }}>
                   {'✔️ ' + ingredient}
                 </li>
               ))}
@@ -93,7 +104,7 @@ function App() {
             <div>
               <h5>Removed Ingredients:</h5>
               {removedIngredients.map((ingredient, index) => (
-                <li key={index} style={{listStyle: 'none'}}>
+                <li key={index} style={{ listStyle: "none" }}>
                   {'✖️ ' + ingredient}
                 </li>
               ))}
@@ -104,16 +115,19 @@ function App() {
         <div className={recipes.length > 0 ? "recipes-container" : "hidden"}>
           {recipes.map((recipe, index) => (
             <div key={index} className="recipe-content">
-                  {recipe.content.title}
+              {recipe.content.title}
             </div>
           ))}
         </div>
 
-        <h4 style={{color:"darkolivegreen"}}>Ingredient Substitutions</h4>
-        <Ingsubs/>
+        <h4 style={{ color: "darkolivegreen" }}>Ingredient Substitutions</h4>
+        <Ingsubs />
 
         <a href="https://forms.gle/jefmYqPREqdFXYKk9">
-          <p style={{fontSize: 15}}>Romain calm and chive on by answering our survey. <br/> Thanks a brunch!</p>
+          <p style={{ fontSize: 15 }}>
+            Romain calm and chive on by answering our survey. <br /> Thanks a
+            brunch!
+          </p>
         </a>
       </div>
 
@@ -130,27 +144,47 @@ function App() {
             <Panel key={index}>
               <h3>{recipe.content.title}</h3>
               <p>{recipe.content.description}</p>
-              <img src={recipe.content.image === 'https://images.media-allrecipes.com/images/79590.png' ? ratatouille : recipe.content.image}
-                   alt="display image"
-                   width={300}/>
-              <p><b>Prep time:</b>   {recipe.content.preptime}   <b>Ready time:</b> {recipe.content.readytime}  </p>
+              <img
+                src={
+                  recipe.content.image ===
+                  "https://images.media-allrecipes.com/images/79590.png"
+                    ? ratatouille
+                    : recipe.content.image
+                }
+                alt="display image"
+                width={300}
+              />
+              <p>
+                <b>Prep time:</b> {recipe.content.preptime} <b>Ready time:</b>{" "}
+                {recipe.content.readytime}
+              </p>
               <h4>Ingredients</h4>
               <ul>
-                {recipe.content.ingredients.substring(1, recipe.content.ingredients.length -1).split("\n").map((value, index) => (
-                  <li key={index}>
-                    {value}
-                    <br />
-                  </li>
-                ))}
+                {recipe.content.ingredients
+                  .substring(1, recipe.content.ingredients.length - 1)
+                  .split("\n")
+                  .map((value, index) => (
+                    <li key={index}>
+                      {value}
+                      <br />
+                    </li>
+                  ))}
               </ul>
 
               <h4>Directions</h4>
               <p>{recipe.content.directions}</p>
-
             </Panel>
           ))}
         </Tabs>
       </div>
+      {loading && (
+        <div className="loading-image-container">
+          <img
+            src="https://c.tenor.com/I6kN-6X7nhAAAAAj/soup-stir.gif"
+            alt="Loading"
+          />
+        </div>
+      )}
     </div>
   );
 }
