@@ -4,6 +4,8 @@ import axios from 'axios';
 import './App.css';
 import { Tabs, Tab, Panel } from '@bumaga/tabs';
 import ratatouille from './ratatouille2.png';
+import soupStir from './soupstir-cooking.gif';
+
 import Ingsubs from './Ingsubs';
 
 function App() {
@@ -180,12 +182,11 @@ function App() {
       {loading && (
         <div className="loading-image-container">
           <img
-            src="https://media.tenor.com/images/cKR69WkItb8bS2XRT0VJYKkCOm0D8VeN/tenor.gif"
+            src={soupStir}
             alt="Loading"
           />
         </div>
       )}
-
     </div>
   );
 }
