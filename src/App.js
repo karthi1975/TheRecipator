@@ -180,11 +180,12 @@ function App() {
       {loading && (
         <div className="loading-image-container">
           <img
-            src="https://c.tenor.com/I6kN-6X7nhAAAAAj/soup-stir.gif"
+            src="https://media.tenor.com/images/cKR69WkItb8bS2XRT0VJYKkCOm0D8VeN/tenor.gif"
             alt="Loading"
           />
         </div>
       )}
+
     </div>
   );
 }
