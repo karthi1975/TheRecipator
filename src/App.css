@@ -10,11 +10,12 @@
 body {
   margin: 0;
   padding: 0;
-  height: auto;
+  height: 100vh;
   background-image: url('./background.jpeg');
   background-size: cover;
   background-position: center;
 }
+
 .container {
   display: grid;
   grid-template-rows: auto auto;
@@ -27,6 +28,7 @@ body {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 /* Media query for screens smaller than 768px */
@@ -36,9 +38,9 @@ body {
     grid-template-rows: auto auto;
     gap: 10px; /* Adjust the grid gap */
     padding: 10px;
+    margin-top: 10px;
   }
 }
-
 
 /* Media query for screens 768px and larger */
 @media (min-width: 768px) {
@@ -48,6 +50,8 @@ body {
     height: auto;
   }
 }
+
+/* ... rest of your CSS */
 
 .form-container {
   grid-row: 1;
