@@ -178,7 +178,7 @@ function App() {
             </Panel>
           ))}
         </Tabs>
-      </div>
+
       {loading && (
         <div className="loading-image-container">
           <img
@@ -188,6 +188,7 @@ function App() {
         </div>
       )}
     </div>
+   </div>
   );
 }
 

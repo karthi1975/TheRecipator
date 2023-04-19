@@ -1,5 +1,3 @@
-/*Reverted to 04/13/2023*/
-
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -48,6 +46,9 @@ body {
   margin-right: 20px;
   height: auto;
   text-align: left;
+  flex-grow: 1;
+  min-height: 0;
+  overflow: auto;
 }
 
 .tabs-container {
@@ -55,7 +56,6 @@ body {
   margin-top: 20px;
 }
 
-/* Media query for screens 768px and larger */
 @media (min-width: 768px) {
   .container {
     flex-direction: row;
@@ -68,91 +68,6 @@ body {
   .tabs-container {
     margin-top: 0;
   }
-}
-
-
-.form-container {
-  grid-row: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  height: auto;
-}
-
-.recipes-container {
-  grid-row: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
-  border-radius: 10px;
-  padding: 30px;
-  margin-top: 20px;
-  margin-right: 20px;
-  height: auto;
-  text-align: left;
-}
-
-.tabs-container {
-  grid-row: 3;
-  height: 100%;
-  margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-  .form-container,
-  .recipes-container {
-    grid-row: auto;
-    grid-column: 1;
-  }
-  .tabs-container {
-    grid-column: 2;
-    grid-row: auto;
-    margin-top: 0;
-  }
-}
-
-.list-container {
-  margin-top: 20px;
-}
-
-.list-group-item {
-  background-color: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(5px);
-  border: none;
-}
-
-h2 {
-  color: white;
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-h3 {margin-bottom: 10px}
-
-h4 {margin-bottom: 15px}
-
-h5 {margin-bottom: 10px;}
-
-.hidden {
-  display: none;
-}
-
-.recipe-content {
-  text-align: left;
-  margin-bottom: 10px;
-}
-
-.resizer-vertical {
-    width: 11px;
-    margin: 0 -5px;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    cursor: col-resize;
 }
 
 .tabs-container .nav {
