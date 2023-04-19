@@ -12,15 +12,15 @@
 body {
   margin: 0;
   padding: 0;
-  height: auto;
+  height: 100vh;
   background-image: url('./background.jpeg');
   background-size: cover;
   background-position: center;
 }
+
 .container {
-  display: grid;
-  grid-template-rows: auto auto;
-  gap: 20px;
+  display: flex;
+  flex-direction: column;
   height: auto;
   background-size: cover;
   background-color: rgba(255, 255, 255, 0.8);
@@ -28,16 +28,49 @@ body {
   border-radius: 10px;
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
+.form-container {
+  height: auto;
+}
+
+.recipes-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 20px;
+  margin-right: 20px;
+  height: auto;
+  text-align: left;
+}
+
+.tabs-container {
+  height: 100%;
+  margin-top: 20px;
+}
+
+/* Media query for screens 768px and larger */
 @media (min-width: 768px) {
   .container {
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: auto;
-    height: auto;
+    flex-direction: row;
+  }
+
+  .form-container,
+  .recipes-container {
+    margin-top: 0;
+  }
+  .tabs-container {
+    margin-top: 0;
   }
 }
+
+
 .form-container {
   grid-row: 1;
   display: flex;

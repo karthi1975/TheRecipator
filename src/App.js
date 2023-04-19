@@ -75,7 +75,7 @@ function App() {
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
             />
-            <Button variant="primary" type="submit" className="w-100" disabled={loading}>
+            <Button variant="primary" type="submit" className="w-100" disabled={loading}  onClick={handleSubmit} onTouchEnd={handleSubmit}>
               {loading ? 'Loading...' : 'Submit'}
             </Button>
             <Button variant="danger" onClick={handleClear} className="clear-button">
@@ -84,10 +84,10 @@ function App() {
           </Form.Group>
         </Form>
         <div>
-          <Button variant="secondary" onClick={handleAdd} className="add-button">
+          <Button variant="secondary" onClick={handleAdd} onTouchEnd={handleAdd}  className="add-button">
             Include
           </Button>{' '}
-          <Button variant="secondary" onClick={handleRemove} className="remove-button">
+          <Button variant="secondary" onClick={handleRemove}onTouchEnd={handleRemove} className="remove-button">
             Exclude
           </Button>
         </div>
