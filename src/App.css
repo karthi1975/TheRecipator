@@ -15,7 +15,6 @@ body {
   background-size: cover;
   background-position: center;
 }
-
 .container {
   display: flex;
   flex-direction: column;
@@ -32,6 +31,7 @@ body {
 .form-container {
   height: auto;
 }
+
 .recipes-container {
   display: flex;
   flex-direction: column;
@@ -45,15 +45,15 @@ body {
   margin-right: 20px;
   height: auto;
   text-align: left;
-  flex-grow: 1;
+  flex: 0 0 30%; /* 30% fixed width */
   min-height: 0;
-  min-width: 300px; /* Add a minimum width to prevent shrinking */
   overflow: auto;
 }
 
 .tabs-container {
   height: 100%;
   margin-top: 20px;
+  flex: 0 0 70%; /* 70% fixed width */
 }
 
 @media (min-width: 768px) {
